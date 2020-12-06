@@ -2,11 +2,16 @@
 	<div class="scroll-wrapper">
 		<div class="scroll-btn" @click="scroll('left')">
 			<font-awesome-icon
+				v-if="scrollLen < 0"
 				icon="chevron-circle-left"
 				size="lg"
 			></font-awesome-icon>
 		</div>
-		<div class="scroll-btn" @click="scroll('right')">
+		<div
+			v-if="scrollLen > -77.5 * (storiesLen - 5)"
+			class="scroll-btn"
+			@click="scroll('right')"
+		>
 			<font-awesome-icon
 				icon="chevron-circle-right"
 				size="lg"
@@ -17,6 +22,10 @@
 
 <script>
 export default {
+	props: {
+		scrollLen: Number,
+		storiesLen: Number
+	},
 	methods: {
 		scroll(dir) {
 			this.$emit('scroll', dir);
@@ -34,6 +43,7 @@ export default {
 	align-items: center;
 	justify-content: space-between;
 	z-index: 999;
+	pointer-events: none;
 }
 
 .scroll-btn {
@@ -45,6 +55,7 @@ export default {
 	justify-content: center;
 	box-shadow: 0 0 20px rgba(100, 100, 100, 0.5);
 	background-color: rgba(100, 100, 100, 0.1);
+	pointer-events: all;
 	&:hover {
 		cursor: pointer;
 	}

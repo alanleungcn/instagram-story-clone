@@ -1,5 +1,5 @@
 <template>
-	<div class="item">
+	<div class="item" @click="viewStory()">
 		<div :class="{ read: isRead, unread: !isRead }">
 			<div class="avatar-wrapper">
 				<img :src="image" class="avatar" />
@@ -15,6 +15,11 @@ export default {
 		name: String,
 		image: String,
 		isRead: Boolean
+	},
+	methods: {
+		viewStory() {
+			this.$emit('viewStory', this.name);
+		}
 	}
 };
 </script>
@@ -30,7 +35,8 @@ export default {
 	gap: 2.5px;
 	@include center;
 	flex-direction: column;
-	padding: 0 10px 0 10px;
+	margin: 0 10px 0 10px;
+	cursor: pointer;
 	user-select: none;
 }
 

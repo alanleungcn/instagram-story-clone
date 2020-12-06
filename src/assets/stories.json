@@ -2,7 +2,8 @@
 	{
 		"name": "test",
 		"image": "https://lh3.googleusercontent.com/a-/AOh14GgGLWwqNN1n9BlDSHr3lMspvGvIq6G8MUYHjnSo=s96-c",
-		"isRead": true
+		"stories": ["https://i.imgur.com/SH480sN.jpg"],
+		"isRead": false
 	},
 	{
 		"name": "test1",
