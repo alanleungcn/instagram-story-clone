@@ -8,12 +8,9 @@
 					size="lg"
 				></font-awesome-icon>
 			</div>
-			<img
-				:src="storyImg"
-				width="419"
-				height="745"
-				style="border-radius: 10px"
-			/>
+			<div class="img-wrapper">
+				<img :src="storyImg" class="img" />
+			</div>
 			<div class="scroll-btn">
 				<font-awesome-icon
 					icon="chevron-circle-right"
@@ -27,18 +24,17 @@
 <script>
 export default {
 	props: {
-		stories: Array,
-		userIdx: Number,
-		storyIdx: Number
+		story: Object
 	},
 	computed: {
 		storyImg() {
-			const user = this.stories[this.userIdx];
-			return user.stories[this.storyIdx];
-		},
-		userStoryLen() {
-			return this.stories[this.userIdx].stories.length;
+			const stories = this.story.stories;
+			for (const i in stories) if (!stories[i].isRead) return stories[i].image;
+			return stories[0].image;
 		}
+		/* userStoryLen() {
+			return this.stories[this.userIdx].stories.length;
+		} */
 	}
 };
 </script>
@@ -68,9 +64,15 @@ export default {
 	gap: 10px;
 }
 
+.img-wrapper {
+	@include center;
+	/* height: 100%; */
+}
+
 .img {
-	width: 420;
-	height: 720;
+	width: 30vw;
+	height: 95vh;
+	border-radius: 10px;
 }
 
 .scroll-btn {

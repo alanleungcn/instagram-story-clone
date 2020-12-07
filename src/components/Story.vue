@@ -2,9 +2,7 @@
 	<div class="story-wrapper">
 		<StoryViewer
 			v-if="showStory"
-			:stories="stories"
-			:userIdx="userIdx"
-			:storyIdx="storyIdx"
+			:story="currentStory"
 			@close="showStory = false"
 		/>
 		<ScrollBtn
@@ -42,6 +40,7 @@ export default {
 			isRead: false,
 			stories: stories,
 			scrollLen: 0,
+			currentStory: {},
 			showStory: false,
 			userIdx: 0,
 			storyIdx: 0
@@ -58,8 +57,7 @@ export default {
 			}
 		},
 		viewStory(name) {
-			const idx = stories.findIndex((e) => e.name === name);
-			this.userIdx = idx;
+			this.currentStory = stories.find((e) => e.name === name);
 			this.showStory = true;
 		}
 	}

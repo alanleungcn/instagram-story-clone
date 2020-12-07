@@ -2,7 +2,9 @@
 	{
 		"name": "test",
 		"image": "https://lh3.googleusercontent.com/a-/AOh14GgGLWwqNN1n9BlDSHr3lMspvGvIq6G8MUYHjnSo=s96-c",
-		"stories": ["https://i.imgur.com/SH480sN.jpg"],
+		"stories": [
+			{ "image": "https://i.imgur.com/SH480sN.jpg", "isRead": false }
+		],
 		"isRead": false
 	},
 	{
