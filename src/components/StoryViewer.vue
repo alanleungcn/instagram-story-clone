@@ -9,6 +9,13 @@
 				></font-awesome-icon>
 			</div>
 			<div class="img-wrapper">
+				<div class="progress-wrapper">
+					<div
+						v-for="(story, idx) in story.stories"
+						class="progress-item"
+						:key="idx"
+					></div>
+				</div>
 				<img :src="storyImg" class="img" />
 			</div>
 			<div class="scroll-btn">
@@ -24,17 +31,19 @@
 <script>
 export default {
 	props: {
-		story: Object
+		story: Object,
+		storyIdx: Number
 	},
 	computed: {
 		storyImg() {
-			const stories = this.story.stories;
-			for (const i in stories) if (!stories[i].isRead) return stories[i].image;
-			return stories[0].image;
+			return this.story.stories[this.storyIdx].image;
 		}
 		/* userStoryLen() {
 			return this.stories[this.userIdx].stories.length;
 		} */
+	},
+	mounted() {
+		console.log(this.story.stories[this.storyIdx]);
 	}
 };
 </script>
@@ -67,6 +76,29 @@ export default {
 .img-wrapper {
 	@include center;
 	/* height: 100%; */
+	position: relative;
+	user-select: none;
+}
+
+.progress-wrapper {
+	position: absolute;
+	top: 20px;
+	display: flex;
+	width: 100%;
+}
+
+.progress-item {
+	flex: 1;
+	height: 2.5px;
+	border-radius: 5px;
+	margin: 0 1px 0 1px;
+	background-color: rgba(200, 200, 200, 0.5);
+	&:first-child {
+		margin-left: 20px;
+	}
+	&:last-child {
+		margin-right: 20px;
+	}
 }
 
 .img {

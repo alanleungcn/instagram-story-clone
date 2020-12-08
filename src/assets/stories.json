@@ -3,7 +3,15 @@
 		"name": "test",
 		"image": "https://lh3.googleusercontent.com/a-/AOh14GgGLWwqNN1n9BlDSHr3lMspvGvIq6G8MUYHjnSo=s96-c",
 		"stories": [
-			{ "image": "https://i.imgur.com/SH480sN.jpg", "isRead": false }
+			{
+				"image": "https://previews.123rf.com/images/ingalinder/ingalinder1705/ingalinder170500032/77515524-colorful-flat-number-1-isolated-on-white-background.jpg",
+				"isRead": false
+			},
+			{ "image": "https://i.stack.imgur.com/FAOZX.png", "isRead": false },
+			{
+				"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/NYCS-bull-trans-3.svg/1024px-NYCS-bull-trans-3.svg.png",
+				"isRead": false
+			}
 		],
 		"isRead": false
 	},

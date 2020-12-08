@@ -3,6 +3,7 @@
 		<StoryViewer
 			v-if="showStory"
 			:story="currentStory"
+			:storyIdx="storyIdx"
 			@close="showStory = false"
 		/>
 		<ScrollBtn
@@ -40,10 +41,9 @@ export default {
 			isRead: false,
 			stories: stories,
 			scrollLen: 0,
-			currentStory: {},
-			showStory: false,
-			userIdx: 0,
-			storyIdx: 0
+			currentStory: stories[0],
+			storyIdx: 0,
+			showStory: true
 		};
 	},
 	methods: {
@@ -59,6 +59,10 @@ export default {
 		viewStory(name) {
 			this.currentStory = stories.find((e) => e.name === name);
 			this.showStory = true;
+			const stories = this.currentStory;
+			for (const i in stories)
+				if (!stories[i].isRead) return (this.storyIdx = i);
+			this.storyIdx = 0;
 		}
 	}
 };
