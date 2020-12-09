@@ -5,7 +5,7 @@
 		"stories": [
 			{
 				"image": "https://previews.123rf.com/images/ingalinder/ingalinder1705/ingalinder170500032/77515524-colorful-flat-number-1-isolated-on-white-background.jpg",
-				"isRead": false
+				"isRead": true
 			},
 			{ "image": "https://i.stack.imgur.com/FAOZX.png", "isRead": false },
 			{
@@ -18,56 +18,33 @@
 	{
 		"name": "test1",
 		"image": "https://lh3.googleusercontent.com/a-/AOh14GgGLWwqNN1n9BlDSHr3lMspvGvIq6G8MUYHjnSo=s96-c",
-		"isRead": false
+		"isRead": false,
+		"stories": [
+			{
+				"image": "https://previews.123rf.com/images/ingalinder/ingalinder1705/ingalinder170500032/77515524-colorful-flat-number-1-isolated-on-white-background.jpg",
+				"isRead": true
+			},
+			{ "image": "https://i.stack.imgur.com/FAOZX.png", "isRead": false },
+			{
+				"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/NYCS-bull-trans-3.svg/1024px-NYCS-bull-trans-3.svg.png",
+				"isRead": false
+			}
+		]
 	},
 	{
 		"name": "test2",
 		"image": "https://lh3.googleusercontent.com/a-/AOh14GgGLWwqNN1n9BlDSHr3lMspvGvIq6G8MUYHjnSo=s96-c",
-		"isRead": false
-	},
-	{
-		"name": "test3",
-		"image": "https://lh3.googleusercontent.com/a-/AOh14GgGLWwqNN1n9BlDSHr3lMspvGvIq6G8MUYHjnSo=s96-c",
-		"isRead": false
-	},
-	{
-		"name": "test4",
-		"image": "https://lh3.googleusercontent.com/a-/AOh14GgGLWwqNN1n9BlDSHr3lMspvGvIq6G8MUYHjnSo=s96-c",
-		"isRead": false
-	},
-	{
-		"name": "test5",
-		"image": "https://lh3.googleusercontent.com/a-/AOh14GgGLWwqNN1n9BlDSHr3lMspvGvIq6G8MUYHjnSo=s96-c",
-		"isRead": false
-	},
-	{
-		"name": "test6",
-		"image": "https://lh3.googleusercontent.com/a-/AOh14GgGLWwqNN1n9BlDSHr3lMspvGvIq6G8MUYHjnSo=s96-c",
-		"isRead": false
-	},
-	{
-		"name": "test7",
-		"image": "https://lh3.googleusercontent.com/a-/AOh14GgGLWwqNN1n9BlDSHr3lMspvGvIq6G8MUYHjnSo=s96-c",
-		"isRead": false
-	},
-	{
-		"name": "test8",
-		"image": "https://lh3.googleusercontent.com/a-/AOh14GgGLWwqNN1n9BlDSHr3lMspvGvIq6G8MUYHjnSo=s96-c",
-		"isRead": false
-	},
-	{
-		"name": "test9",
-		"image": "https://lh3.googleusercontent.com/a-/AOh14GgGLWwqNN1n9BlDSHr3lMspvGvIq6G8MUYHjnSo=s96-c",
-		"isRead": false
-	},
-	{
-		"name": "test10",
-		"image": "https://lh3.googleusercontent.com/a-/AOh14GgGLWwqNN1n9BlDSHr3lMspvGvIq6G8MUYHjnSo=s96-c",
-		"isRead": false
-	},
-	{
-		"name": "test11",
-		"image": "https://lh3.googleusercontent.com/a-/AOh14GgGLWwqNN1n9BlDSHr3lMspvGvIq6G8MUYHjnSo=s96-c",
-		"isRead": false
+		"isRead": false,
+		"stories": [
+			{
+				"image": "https://previews.123rf.com/images/ingalinder/ingalinder1705/ingalinder170500032/77515524-colorful-flat-number-1-isolated-on-white-background.jpg",
+				"isRead": true
+			},
+			{ "image": "https://i.stack.imgur.com/FAOZX.png", "isRead": false },
+			{
+				"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/NYCS-bull-trans-3.svg/1024px-NYCS-bull-trans-3.svg.png",
+				"isRead": false
+			}
+		]
 	}
 ]

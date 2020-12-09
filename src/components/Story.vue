@@ -5,6 +5,7 @@
 			:story="currentStory"
 			:storyIdx="storyIdx"
 			@close="showStory = false"
+			@scroll="scrollStory"
 		/>
 		<ScrollBtn
 			@scroll="scroll"
@@ -41,28 +42,56 @@ export default {
 			isRead: false,
 			stories: stories,
 			scrollLen: 0,
-			currentStory: stories[0],
+			currentStory: {},
 			storyIdx: 0,
-			showStory: true
+			showStory: false
 		};
 	},
 	methods: {
 		scroll(dir) {
 			if (dir === 'right') {
-				if (this.scrollLen > -77.5 * (this.stories.length - 5))
+				if (this.scrollLen > -75.2 * (this.stories.length - 5))
 					this.scrollLen -= 310;
 			} else {
 				if (this.scrollLen < 0) this.scrollLen += 310;
 				else this.scrollLen = 0;
 			}
 		},
+		scrollStory(dir) {
+			console.log(dir);
+			if (dir === 'right') {
+				if (this.storyIdx + 1 > this.currentStory.stories.length - 1) {
+					const idx = this.stories.findIndex(
+						(e) => e.name === this.currentStory.name
+					);
+					if (idx + 1 === this.stories.length) return (this.showStory = false);
+					this.currentStory = this.stories[idx + 1];
+					this.storyIdx = 0;
+					return;
+				}
+				this.storyIdx++;
+			} else {
+				if (this.storyIdx === 0) {
+					const idx = this.stories.findIndex(
+						(e) => e.name === this.currentStory.name
+					);
+					if (idx === 0) return (this.showStory = false);
+					this.currentStory = this.stories[idx - 1];
+					this.storyIdx = this.currentStory.stories.length - 1;
+					return;
+				}
+				this.storyIdx--;
+			}
+		},
 		viewStory(name) {
-			this.currentStory = stories.find((e) => e.name === name);
+			this.currentStory = this.stories.find((e) => e.name === name);
 			this.showStory = true;
-			const stories = this.currentStory;
-			for (const i in stories)
-				if (!stories[i].isRead) return (this.storyIdx = i);
+			const story = this.currentStory.stories;
+			for (let i = 0; i < story.length; i++)
+				if (!story[i].isRead) return (this.storyIdx = i);
+			console.log(this.storyIdx);
 			this.storyIdx = 0;
+			console.log(this.storyIdx);
 		}
 	}
 };
