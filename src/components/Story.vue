@@ -58,7 +58,6 @@ export default {
 			}
 		},
 		scrollStory(dir) {
-			console.log(dir);
 			if (dir === 'right') {
 				if (this.storyIdx + 1 > this.currentStory.stories.length - 1) {
 					const idx = this.stories.findIndex(

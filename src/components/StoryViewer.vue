@@ -22,9 +22,16 @@
 						></div>
 					</div>
 				</div>
-				<div class="info-wrapper">
-					<img :src="story.image" class="avatar" />
-					<div class="info">{{ story.name }}</div>
+				<div class="up-wrapper">
+					<div class="info-wrapper">
+						<img :src="story.image" class="avatar" />
+						<div class="name">{{ story.name }}</div>
+						<div class="time">{{ timeSince }}</div>
+					</div>
+					<div class="control-wrapper" @click="playPause()">
+						<font-awesome-icon v-if="pause" icon="play" />
+						<font-awesome-icon v-if="!pause" icon="pause" />
+					</div>
 				</div>
 				<img :src="storyImg" class="img" />
 			</div>
@@ -46,7 +53,8 @@ export default {
 	},
 	data() {
 		return {
-			time: 0
+			time: 0,
+			pause: false
 		};
 	},
 	computed: {
@@ -55,26 +63,51 @@ export default {
 		},
 		progress() {
 			return (this.time / 5000) * 100;
+		},
+		timeSince() {
+			const sec = Math.floor(
+				(Date.now() - this.story.stories[this.storyIdx].time) / 1000
+			);
+			let interval = sec / (60 * 60 * 24 * 365);
+			if (interval > 1) return Math.floor(interval) + 'yr';
+			interval = sec / (60 * 60 * 24 * 30);
+			if (interval > 1) return Math.floor(interval) + 'mo';
+			interval = sec / (60 * 60 * 24);
+			if (interval > 1) return Math.floor(interval) + 'd';
+			interval = sec / (60 * 60);
+			if (interval > 1) return Math.floor(interval) + 'h';
+			interval = sec / 60;
+			if (interval > 1) return Math.floor(interval) + 'm';
+			return Math.floor(sec) + 's';
 		}
 	},
 	methods: {
 		startTimer() {
-			const start = Date.now();
+			//const start = Date.now();
 			this.interval = setInterval(() => {
-				this.time = Date.now() - start;
-				//if (this.time >= 5000) this.scroll('right');
-			}, 1);
+				//this.time = Date.now() - start;
+				this.time += 10;
+				if (this.time >= 5000) this.scroll('right');
+			}, 10);
 		},
 		scroll(dir) {
 			this.$emit('scroll', dir);
 			this.time = 0;
 			clearInterval(this.interval);
 			this.startTimer();
+		},
+		playPause() {
+			this.pause = !this.pause;
+			if (this.pause) clearInterval(this.interval);
+			else this.startTimer();
 		}
 	},
 	mounted() {
 		this.startTimer();
 		console.log(this.story);
+	},
+	beforeDestroy() {
+		clearInterval(this.interval);
 	}
 };
 </script>
@@ -118,8 +151,8 @@ export default {
 		background: linear-gradient(
 			to bottom,
 			rgba(0, 0, 0, 0.5) 0%,
-			rgba(0, 0, 0, 0) 20%,
-			rgba(0, 0, 0, 0) 90%,
+			rgba(0, 0, 0, 0) 15%,
+			rgba(0, 0, 0, 0) 85%,
 			rgba(0, 0, 0, 0.5) 100%
 		);
 		border-radius: 10px;
@@ -158,15 +191,27 @@ export default {
 	max-width: 100%;
 }
 
-.info-wrapper {
+.up-wrapper {
 	position: absolute;
 	display: flex;
 	width: 100%;
 	top: 35px;
 	align-items: center;
+	justify-content: space-between;
 	z-index: 1;
+}
+
+.info-wrapper {
+	display: flex;
+	align-items: center;
 	gap: 10px;
-	left: 15px;
+	margin-left: 20px;
+}
+
+.control-wrapper {
+	cursor: pointer;
+	color: #ffffff;
+	margin-right: 20px;
 }
 
 .avatar {
@@ -175,9 +220,14 @@ export default {
 	height: 30px;
 }
 
-.info {
+.name {
 	font-size: 17.5px;
 	color: #ffffff;
+}
+
+.time {
+	font-size: 15px;
+	color: rgb(200, 200, 200);
 }
 
 .img {
