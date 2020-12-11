@@ -59,9 +59,6 @@ export default {
 		},
 		sortStory() {
 			this.stories.sort((a, b) => {
-				return a.name > b.name ? 1 : -1;
-			});
-			this.stories.sort((a, b) => {
 				return a.isRead === b.isRead ? 0 : a.isRead ? 1 : -1;
 			});
 		},
@@ -110,9 +107,6 @@ export default {
 			this.storyIdx = 0;
 			this.updateReadState(idx);
 		}
-	},
-	mounted() {
-		this.sortStory();
 	}
 };
 </script>
