@@ -83,18 +83,14 @@ export default {
 	},
 	methods: {
 		startTimer() {
-			//const start = Date.now();
 			this.interval = setInterval(() => {
-				//this.time = Date.now() - start;
 				this.time += 10;
 				if (this.time >= 5000) this.scroll('right');
 			}, 10);
 		},
 		scroll(dir) {
 			this.$emit('scroll', dir);
-			this.time = 0;
-			clearInterval(this.interval);
-			this.startTimer();
+			console.log('scroll');
 		},
 		playPause() {
 			this.pause = !this.pause;
@@ -104,10 +100,17 @@ export default {
 	},
 	mounted() {
 		this.startTimer();
-		console.log(this.story);
 	},
 	beforeDestroy() {
 		clearInterval(this.interval);
+	},
+	watch: {
+		storyIdx() {
+			this.time = 0;
+			this.pause = false;
+			clearInterval(this.interval);
+			this.startTimer();
+		}
 	}
 };
 </script>

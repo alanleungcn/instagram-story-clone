@@ -5,7 +5,7 @@
 			:story="currentStory"
 			:storyIdx="storyIdx"
 			@close="showStory = false"
-			@scroll="scrollStory"
+			@scroll="scrollViewer"
 		/>
 		<ScrollBtn
 			@scroll="scroll"
@@ -57,23 +57,37 @@ export default {
 				else this.scrollLen = 0;
 			}
 		},
-		scrollStory(dir) {
+		sortStory() {
+			this.stories.sort((a, b) => {
+				return a.name > b.name ? 1 : -1;
+			});
+			this.stories.sort((a, b) => {
+				return a.isRead === b.isRead ? 0 : a.isRead ? 1 : -1;
+			});
+		},
+		updateReadState(idx) {
+			const stories = this.stories[idx].stories;
+			stories[this.storyIdx].isRead = true;
+			for (let i = 0; i < stories.length; i++) if (!stories[i].isRead) return;
+			this.stories[idx].isRead = true;
+			this.sortStory();
+		},
+		scrollViewer(dir) {
+			const idx = this.stories.findIndex(
+				(e) => e.name === this.currentStory.name
+			);
 			if (dir === 'right') {
 				if (this.storyIdx + 1 > this.currentStory.stories.length - 1) {
-					const idx = this.stories.findIndex(
-						(e) => e.name === this.currentStory.name
-					);
 					if (idx + 1 === this.stories.length) return (this.showStory = false);
 					this.currentStory = this.stories[idx + 1];
 					this.storyIdx = 0;
+					this.updateReadState(idx + 1);
 					return;
 				}
 				this.storyIdx++;
+				this.updateReadState(idx);
 			} else {
 				if (this.storyIdx === 0) {
-					const idx = this.stories.findIndex(
-						(e) => e.name === this.currentStory.name
-					);
 					if (idx === 0) return (this.showStory = false);
 					this.currentStory = this.stories[idx - 1];
 					this.storyIdx = this.currentStory.stories.length - 1;
@@ -83,15 +97,22 @@ export default {
 			}
 		},
 		viewStory(name) {
-			this.currentStory = this.stories.find((e) => e.name === name);
+			const idx = this.stories.findIndex((e) => e.name === name);
+			this.currentStory = this.stories[idx];
 			this.showStory = true;
-			const story = this.currentStory.stories;
-			for (let i = 0; i < story.length; i++)
-				if (!story[i].isRead) return (this.storyIdx = i);
-			console.log(this.storyIdx);
+			for (let i = 0; i < this.currentStory.stories.length; i++) {
+				if (!this.currentStory.stories[i].isRead) {
+					this.storyIdx = i;
+					this.updateReadState(idx);
+					return;
+				}
+			}
 			this.storyIdx = 0;
-			console.log(this.storyIdx);
+			this.updateReadState(idx);
 		}
+	},
+	mounted() {
+		this.sortStory();
 	}
 };
 </script>
@@ -111,7 +132,6 @@ export default {
 	height: 100%;
 	display: flex;
 	align-items: center;
-	padding: 0 5px 0 5px;
 	transition: 0.5s;
 }
 </style>
