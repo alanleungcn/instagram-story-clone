@@ -1,6 +1,6 @@
 [
 	{
-		"name": "John",
+		"name": "Alan",
 		"image": "https://i.imgur.com/4AiXzf8b.jpg",
 		"isRead": false,
 		"stories": [
@@ -22,7 +22,7 @@
 		]
 	},
 	{
-		"name": "George",
+		"name": "Ben",
 		"image": "https://i.imgur.com/fqd9uUjb.jpg",
 		"isRead": false,
 		"stories": [

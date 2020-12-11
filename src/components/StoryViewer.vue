@@ -1,14 +1,16 @@
 <template>
 	<div class="viewer-wrapper">
 		<div class="close-btn" @click="$emit('close')">&times;</div>
-		<div class="main-wrapper">
-			<div class="scroll-btn" @click="scroll('left')">
+		<div class="viewer-main-wrapper">
+			<div class="scroll-btn" @click="$emit('scroll', 'left')">
 				<font-awesome-icon
 					icon="chevron-circle-left"
 					size="lg"
 				></font-awesome-icon>
 			</div>
 			<div class="img-wrapper">
+				<div class="left" @click="$emit('scroll', 'left')"></div>
+				<div class="right" @click="$emit('scroll', 'right')"></div>
 				<div class="progress-wrapper">
 					<div
 						v-for="(story, idx) in story.stories"
@@ -16,15 +18,15 @@
 						:key="idx"
 					>
 						<div
-							v-if="idx <= storyIdx"
 							class="progress-bar"
+							v-if="idx <= storyIdx"
 							:style="idx === storyIdx ? `width: ${progress}%` : 'width: 100%'"
 						></div>
 					</div>
 				</div>
 				<div class="up-wrapper">
 					<div class="info-wrapper">
-						<img :src="story.image" class="avatar" />
+						<img class="avatar" :src="story.image" />
 						<div class="name">{{ story.name }}</div>
 						<div class="time">{{ timeSince }}</div>
 					</div>
@@ -33,9 +35,9 @@
 						<font-awesome-icon v-if="!pause" icon="pause" />
 					</div>
 				</div>
-				<img :src="storyImg" class="img" />
+				<img :src="imageUrl" class="img" />
 			</div>
-			<div class="scroll-btn" @click="scroll('right')">
+			<div class="scroll-btn" @click="$emit('scroll', 'right')">
 				<font-awesome-icon
 					icon="chevron-circle-right"
 					size="lg"
@@ -58,7 +60,7 @@ export default {
 		};
 	},
 	computed: {
-		storyImg() {
+		imageUrl() {
 			return this.story.stories[this.storyIdx].image;
 		},
 		progress() {
@@ -85,17 +87,19 @@ export default {
 		startTimer() {
 			this.interval = setInterval(() => {
 				this.time += 10;
-				if (this.time >= 5000) this.scroll('right');
+				if (this.time >= 5000) this.$emit('scroll', 'right');
 			}, 10);
-		},
-		scroll(dir) {
-			this.$emit('scroll', dir);
-			console.log('scroll');
 		},
 		playPause() {
 			this.pause = !this.pause;
 			if (this.pause) clearInterval(this.interval);
 			else this.startTimer();
+		},
+		resetTimer() {
+			this.time = 0;
+			this.pause = false;
+			clearInterval(this.interval);
+			this.startTimer();
 		}
 	},
 	mounted() {
@@ -106,10 +110,13 @@ export default {
 	},
 	watch: {
 		storyIdx() {
-			this.time = 0;
-			this.pause = false;
-			clearInterval(this.interval);
-			this.startTimer();
+			this.resetTimer();
+		},
+		story: {
+			handler() {
+				this.resetTimer();
+			},
+			deep: true
 		}
 	}
 };
@@ -124,33 +131,71 @@ export default {
 
 .viewer-wrapper {
 	@include center;
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	background-color: #1a1a1a;
 	top: 0;
 	left: 0;
 	margin: 0;
 	padding: 0;
+	width: 100%;
+	height: 100%;
 	z-index: 9999;
+	position: fixed;
+	background-color: #1a1a1a;
 }
 
-.main-wrapper {
+.viewer-main-wrapper {
 	@include center;
 	gap: 10px;
 }
 
+.scroll-btn {
+	cursor: pointer;
+	color: #3a3a3a;
+	&:hover {
+		color: #dbdbdb;
+	}
+}
+
+.left {
+	left: 0;
+	width: 50%;
+	height: 100%;
+	z-index: 9999;
+	position: absolute;
+}
+
+.right {
+	right: 0;
+	width: 50%;
+	height: 100%;
+	z-index: 9999;
+	position: absolute;
+}
+
+.close-btn {
+	@include center;
+	top: 10px;
+	right: 10px;
+	width: 50px;
+	height: 50px;
+	font-size: 50px;
+	position: fixed;
+	cursor: pointer;
+	color: #ffffff;
+	user-select: none;
+}
+
 .img-wrapper {
 	@include center;
-	position: relative;
 	user-select: none;
+	position: relative;
 	&:after {
-		content: '';
-		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
+		content: '';
+		position: absolute;
+		border-radius: 10px;
 		background: linear-gradient(
 			to bottom,
 			rgba(0, 0, 0, 0.5) 0%,
@@ -158,22 +203,22 @@ export default {
 			rgba(0, 0, 0, 0) 85%,
 			rgba(0, 0, 0, 0.5) 100%
 		);
-		border-radius: 10px;
 	}
 }
 
 .progress-wrapper {
-	position: absolute;
 	top: 20px;
-	display: flex;
 	width: 100%;
+	display: flex;
+	position: absolute;
 }
 
 .progress-item {
-	position: relative;
 	flex: 1;
 	height: 2.5px;
+	z-index: 9999;
 	border-radius: 5px;
+	position: relative;
 	margin: 0 1px 0 1px;
 	background-color: rgba(200, 200, 200, 0.5);
 	&:first-child {
@@ -182,33 +227,31 @@ export default {
 	&:last-child {
 		margin-right: 15px;
 	}
-	z-index: 1;
-	border-radius: 5px;
 }
 
 .progress-bar {
 	height: 100%;
+	max-width: 100%;
+	border-radius: 5px;
 	position: absolute;
 	background-color: #ffffff;
-	border-radius: 5px;
-	max-width: 100%;
 }
 
 .up-wrapper {
-	position: absolute;
-	display: flex;
-	width: 100%;
 	top: 35px;
+	width: 100%;
+	z-index: 9999;
+	display: flex;
+	position: absolute;
 	align-items: center;
 	justify-content: space-between;
-	z-index: 1;
 }
 
 .info-wrapper {
-	display: flex;
-	align-items: center;
 	gap: 10px;
+	display: flex;
 	margin-left: 20px;
+	align-items: center;
 }
 
 .control-wrapper {
@@ -218,45 +261,24 @@ export default {
 }
 
 .avatar {
-	border-radius: 100%;
 	width: 30px;
 	height: 30px;
+	border-radius: 100%;
 }
 
 .name {
-	font-size: 17.5px;
 	color: #ffffff;
+	font-size: 17.5px;
 }
 
 .time {
 	font-size: 15px;
-	color: rgb(200, 200, 200);
+	color: #c8c8c8;
 }
 
 .img {
-	width: calc(95vh * (9 / 16));
 	height: 95vh;
 	border-radius: 10px;
-}
-
-.scroll-btn {
-	color: #3a3a3a;
-	cursor: pointer;
-	&:hover {
-		color: #dbdbdb;
-	}
-}
-
-.close-btn {
-	@include center;
-	position: fixed;
-	font-size: 50px;
-	width: 50px;
-	height: 50px;
-	right: 10px;
-	top: 10px;
-	color: #ffffff;
-	cursor: pointer;
-	user-select: none;
+	width: calc(95vh * (9 / 16));
 }
 </style>

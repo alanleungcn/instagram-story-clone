@@ -1,6 +1,6 @@
 <template>
 	<div class="scroll-wrapper">
-		<div class="scroll-btn" @click="scroll('left')">
+		<div class="scroll-btn" @click="$emit('scroll', 'left')">
 			<font-awesome-icon
 				v-if="scrollLen < 0"
 				icon="chevron-circle-left"
@@ -8,9 +8,9 @@
 			></font-awesome-icon>
 		</div>
 		<div
-			v-if="scrollLen > -77.5 * (storiesLen - 5)"
+			v-if="scrollLen > -77.5 * (storiesLen - 7)"
 			class="scroll-btn"
-			@click="scroll('right')"
+			@click="$emit('scroll', 'right')"
 		>
 			<font-awesome-icon
 				icon="chevron-circle-right"
@@ -25,25 +25,20 @@ export default {
 	props: {
 		scrollLen: Number,
 		storiesLen: Number
-	},
-	methods: {
-		scroll(dir) {
-			this.$emit('scroll', dir);
-		}
 	}
 };
 </script>
 
 <style lang="scss" scoped>
 .scroll-wrapper {
-	position: absolute;
 	width: 100%;
 	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
 	z-index: 999;
+	display: flex;
+	position: absolute;
+	align-items: center;
 	pointer-events: none;
+	justify-content: space-between;
 }
 
 .scroll-btn {
@@ -52,10 +47,10 @@ export default {
 	color: #ffffff;
 	border-radius: 100%;
 	align-items: center;
-	justify-content: center;
-	box-shadow: 0 0 20px rgba(100, 100, 100, 0.5);
-	background-color: rgba(100, 100, 100, 0.1);
 	pointer-events: all;
+	justify-content: center;
+	background-color: rgba(100, 100, 100, 0.1);
+	box-shadow: 0 0 20px rgba(100, 100, 100, 0.5);
 	&:hover {
 		cursor: pointer;
 	}

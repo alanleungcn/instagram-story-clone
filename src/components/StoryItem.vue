@@ -32,12 +32,12 @@ export default {
 }
 
 .item {
-	gap: 2.5px;
 	@include center;
-	flex-direction: column;
-	margin: 0 10px 0 10px;
+	gap: 2.5px;
 	cursor: pointer;
 	user-select: none;
+	flex-direction: column;
+	padding: 0 10px 0 10px;
 }
 
 .read {
@@ -65,9 +65,9 @@ export default {
 
 .avatar-wrapper {
 	@include center;
-	border-radius: 100%;
 	width: 50px;
 	height: 50px;
+	border-radius: 100%;
 	box-shadow: 0 0 0 2px #ffffff;
 }
 

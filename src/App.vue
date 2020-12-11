@@ -18,18 +18,17 @@ export default {
 html,
 body {
 	margin: 0;
+	padding: 0;
 	width: 100%;
 	height: 100%;
 	font-family: 'Montserrat', sans-serif;
 }
 
 .app {
-	gap: 25px;
 	width: 100%;
 	height: 100%;
 	display: flex;
 	align-items: center;
-	flex-direction: column;
 	justify-content: center;
 	background-color: #fafafa;
 }
