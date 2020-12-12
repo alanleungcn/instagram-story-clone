@@ -86,7 +86,7 @@ export default {
 					if (this.stories[idx - 1].isRead)
 						this.storyIdx = this.currentStory.stories.length - 1;
 					else this.viewStory(this.stories[idx - 1].name);
-					this.updateReadState(idx - 1);
+					//this.updateReadState(idx - 1);
 					return;
 				}
 				this.storyIdx--;
