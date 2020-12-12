@@ -37,7 +37,7 @@ export default {
 	cursor: pointer;
 	user-select: none;
 	flex-direction: column;
-	padding: 0 10px 0 10px;
+	margin: 0 10px 0 10px;
 }
 
 .read {

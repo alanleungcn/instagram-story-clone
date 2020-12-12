@@ -8,7 +8,7 @@
 			></font-awesome-icon>
 		</div>
 		<div
-			v-if="scrollLen > -77.5 * (storiesLen - 7)"
+			v-if="scrollLen > -77.5 * (storiesLen - 5)"
 			class="scroll-btn"
 			@click="$emit('scroll', 'right')"
 		>

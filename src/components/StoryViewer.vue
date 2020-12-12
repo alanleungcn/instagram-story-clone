@@ -144,7 +144,7 @@ export default {
 
 .viewer-main-wrapper {
 	@include center;
-	gap: 10px;
+	gap: 15px;
 }
 
 .scroll-btn {
@@ -177,6 +177,7 @@ export default {
 	right: 10px;
 	width: 50px;
 	height: 50px;
+	z-index: 99999;
 	font-size: 50px;
 	position: fixed;
 	cursor: pointer;
@@ -280,5 +281,12 @@ export default {
 	height: 95vh;
 	border-radius: 10px;
 	width: calc(95vh * (9 / 16));
+}
+
+@media (max-width: 768px) {
+	.close-btn {
+		top: auto;
+		bottom: 10px;
+	}
 }
 </style>

@@ -51,7 +51,7 @@ export default {
 	methods: {
 		scrollItem(dir) {
 			if (dir === 'right') {
-				if (this.scrollLen > -77.5 * (this.stories.length - 7))
+				if (this.scrollLen > -77.5 * (this.stories.length - 5))
 					this.scrollLen -= 77.5 * 5;
 			} else if (this.scrollLen < 0) this.scrollLen += 77.5 * 5;
 		},
@@ -72,8 +72,6 @@ export default {
 						this.stories[idx + 1].isRead !== this.readState
 					)
 						return (this.showViewer = false);
-					/* console.log(this.stories[idx]);
-					if (this.stories[idx]) console.log('close viewer'); */
 					this.storyIdx = 0;
 					this.updateReadState(idx + 1);
 					this.currentStory = this.stories[idx + 1];
@@ -83,6 +81,7 @@ export default {
 				this.updateReadState(idx);
 			} else {
 				if (this.storyIdx === 0) {
+					if (idx === 0) return (this.showViewer = false);
 					this.currentStory = this.stories[idx - 1];
 					if (this.stories[idx - 1].isRead)
 						this.storyIdx = this.currentStory.stories.length - 1;
@@ -145,5 +144,11 @@ export default {
 	display: flex;
 	transition: 0.5s;
 	align-items: center;
+}
+
+@media (max-width: 768px) {
+	.story-wrapper {
+		width: 95%;
+	}
 }
 </style>
